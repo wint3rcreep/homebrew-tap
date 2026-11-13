@@ -7,6 +7,10 @@ brew install --cask wint3rcreep/tap/desktopsnow
 open -a DesktopSnow
 ```
 
+## Preview audit policy
+
+DesktopSnow is intentionally distributed as a GitHub prerelease until interactive acceptance. The tap uses Homebrew's standard `github_prerelease_allowlist` audit exception for this cask (the same mechanism used by homebrew-cask preview channels), and skips automatic livecheck because no stable feed exists yet. Artifact download, checksum, bundle/minimum OS, style, install and runtime verification remain enabled. Remove the exception/livecheck skip when promoting a stable release.
+
 Requires macOS 12 Monterey or newer and arm64. The 3.3.0 preview is ad-hoc signed, not notarized. Gatekeeper may require explicit Privacy & Security approval. Do not disable Gatekeeper. Screen Recording permission is needed for window geometry; the app does not record images. Interactive GUI/multi-monitor acceptance is still pending.
 
 ```sh

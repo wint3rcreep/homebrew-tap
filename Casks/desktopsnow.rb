@@ -7,6 +7,10 @@ cask "desktopsnow" do
   desc "Independent menu-bar desktop snow overlay"
   homepage "https://github.com/wint3rcreep/desktop-snow"
 
+  livecheck do
+    skip "Pinned preview; stable release feed is not available yet"
+  end
+
   depends_on arch: :arm64
   depends_on macos: :monterey
 
