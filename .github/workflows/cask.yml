@@ -18,6 +18,7 @@ jobs:
         run: |
           test "$(uname -m)" = arm64
           brew tap wint3rcreep/tap "$GITHUB_WORKSPACE"
+          brew trust --cask wint3rcreep/tap/desktopsnow
           brew info --cask wint3rcreep/tap/desktopsnow
       - name: Style
         run: brew style --cask wint3rcreep/tap/desktopsnow
