@@ -1,0 +1,36 @@
+name: Cask install verification
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  install:
+    runs-on: macos-15
+    timeout-minutes: 15
+    env:
+      HOMEBREW_NO_ANALYTICS: '1'
+      HOMEBREW_NO_AUTO_UPDATE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tap exact checkout
+        run: |
+          test "$(uname -m)" = arm64
+          brew tap wint3rcreep/tap "$GITHUB_WORKSPACE"
+          brew info --cask wint3rcreep/tap/desktopsnow
+      - name: Style
+        run: brew style --cask wint3rcreep/tap/desktopsnow
+      - name: Audit published artifact
+        run: brew audit --cask --online wint3rcreep/tap/desktopsnow
+      - name: Install actual cask and test installed app
+        run: |
+          brew install --cask wint3rcreep/tap/desktopsnow
+          test -x /Applications/DesktopSnow.app/Contents/MacOS/DesktopSnow
+          codesign --verify --deep --strict /Applications/DesktopSnow.app
+          /Applications/DesktopSnow.app/Contents/MacOS/DesktopSnow --metal-self-test
+          brew list --cask --versions wint3rcreep/tap/desktopsnow
+      - name: Uninstall
+        run: |
+          brew uninstall --cask wint3rcreep/tap/desktopsnow
+          test ! -e /Applications/DesktopSnow.app
