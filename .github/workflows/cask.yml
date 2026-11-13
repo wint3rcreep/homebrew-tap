@@ -30,7 +30,7 @@ jobs:
           test -x /Applications/DesktopSnow.app/Contents/MacOS/DesktopSnow
           codesign --verify --deep --strict /Applications/DesktopSnow.app
           /Applications/DesktopSnow.app/Contents/MacOS/DesktopSnow --metal-self-test
-          brew list --cask --versions wint3rcreep/tap/desktopsnow
+          brew list --cask --versions desktopsnow
       - name: Uninstall
         run: |
           brew uninstall --cask wint3rcreep/tap/desktopsnow
